@@ -39,6 +39,8 @@
 
     ];
 
+
+//parte creazione filtro Parcheggio
     $filtroParcheggio = isset($_GET["parking"]);
 
     $hotelsCopy = $hotels;
@@ -57,7 +59,20 @@
         $hotelsCopy = $hotelwithParking;
     }
 
+//parte creazione voto
+    if( isset($_GET["voteInput"]) && $_GET["voteInput"] !== "" ){
 
+        $hotelwithVote = [];
+
+        foreach ($hotelsCopy as $elem ) {
+            if( $elem["vote"] >= $_GET["voteInput"] ) {
+
+                $hotelwithVote[] = $elem;
+            }
+        }
+
+        $hotelsCopy = $hotelwithVote;
+    }
 
 ?>
 
@@ -77,12 +92,14 @@
 
         <div>
             <form action="index.php" method="GET">
-                <label class="d-block mt-2">Desideri Hotel con parcheggio?</label>
+                <label class="d-block mt-2">Desideri un hotel con parcheggio?</label>
                 <select name="parking" id="select-parking" class="mt-2">
                     <option value="">-- Seleziona --</option>
                     <option value="1">Si</option>
                     <option value="0">No</option>
                 </select>
+
+                <input type="number" name="voteInput">
 
                 <div>
                     <button class="btn btn-warning mt-2" type="submit">Conferma</button>
