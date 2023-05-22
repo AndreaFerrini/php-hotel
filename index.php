@@ -39,6 +39,26 @@
 
     ];
 
+    $filtroParcheggio = isset($_GET["parking"]);
+
+    $hotelsCopy = $hotels;
+
+    if( isset($_GET["parking"]) && $_GET["parking"] == "1" ){
+
+        $hotelwithParking = [];
+
+        foreach ($hotels as $elem ) {
+            if( $elem["parking"] ) {
+
+                $hotelwithParking[] = $elem;
+            }
+        }
+
+        $hotelsCopy = $hotelwithParking;
+    }
+
+
+
 ?>
 
 <!DOCTYPE html>
@@ -54,18 +74,35 @@
 <body>
     <div class="container text-center">
         <h1>La tua ricerca ha portato a questi hotels:</h1>
+
+        <div>
+            <form action="index.php" method="GET">
+                <label class="d-block mt-2">Desideri Hotel con parcheggio?</label>
+                <select name="parking" id="select-parking" class="mt-2">
+                    <option value="">-- Seleziona --</option>
+                    <option value="1">Si</option>
+                    <option value="0">No</option>
+                </select>
+
+                <div>
+                    <button class="btn btn-warning mt-2" type="submit">Conferma</button>
+                </div>
+            </form>
+        </div>
+
+
         <table class="table mt-5">
             <thead>
                 <tr>
-                    <th scope="col">name</th>
-                    <th scope="col">description</th>
-                    <th scope="col">parking</th>
-                    <th scope="col">vote</th>
-                    <th scope="col">distance_to_center</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Description</th>
+                    <th scope="col">Parking</th>
+                    <th scope="col">Vote</th>
+                    <th scope="col">Distance_to_center</th>
                 </tr>
             </thead>
             <tbody>
-                    <?php foreach( $hotels as $elem ){ ?>
+                    <?php foreach( $hotelsCopy as $elem ){ ?>
                         <tr>
                             <th scope="row"><?php echo $elem["name"] ?></th>
                             <td><?php echo $elem["description"] ?></td>

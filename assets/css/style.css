@@ -3,3 +3,12 @@
     padding: 0;
     box-sizing: border-box;
 }
+
+body{
+    background-color: rgba(36, 100, 218, 0.87);
+    color: rgba(230, 205, 67, 0.966);
+}
+
+.table{
+    color: rgba(230, 205, 67, 0.966);
+}
